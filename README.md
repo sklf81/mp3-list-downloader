@@ -11,7 +11,7 @@ The script uses the youtube search-query to search for the song in the given lis
 Unfortunately the code isn't well documentet at the time, but hopefully in the future this thing will be a lot cleaner.
 
 ### Examples
-####               name on Youtube                                     text in the list downloader   
+               name on Youtube                                     text in the list downloader   
                
  "A Flock Of Seagulls - I Ran (So Far Away) (Video)"   -->   "a flock of seagulls i ran"
  "America - A Horse With No Name+Lyrics"               -->   "a horse with no name america"
