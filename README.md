@@ -7,7 +7,9 @@
  Also, you can download an entire list of songs just with a few clicks.
  
 ## How does it work?
- 
+The script uses the youtube search-query to search for the song in the given list and then downloads the song with the correct audio codec.
+Unfortunately the code isn't well documentet at the time, but hopefully in the future this thing will be a lot cleaner.
+
 ### Examples
 ####               name on Youtube                                     text in the list downloader   
                
