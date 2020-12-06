@@ -27,9 +27,14 @@ class mp3Downloader(threading.Thread):
 
     def __downloadAudioMp4FromYoutube(self, url, filepath):
         try:
-            youtube = YouTube(url)
-            return youtube.streams.filter(only_audio=True, subtype="mp4").first().download(filepath)
+            youtube = YouTube()
+            youtube.url = url
+            filename =  youtube.streams.filter(mime_type="audio/mp4").first().download(filepath)
+            return filename
         except:
+            #This error is often caused, because for some reason pytube won't create an instance of YouTube()
+            #And for some reason, when an instance of YouTube is created, pytube struggles to get right stream
+            print("Error: Either a wrong URL or the right Stream isn't available")
             raise Exception("Error: Either a wrong URL or the right Stream isn't available")
 
     def __convertAudioMp4ToMp3(self, filename):
@@ -68,20 +73,21 @@ class mp3Downloader(threading.Thread):
 
 
     def downloadTitles(self, titles):
+        print("\n\nDownload is starting\n\n")
         self.bad_titles.clear()
         for i in titles:
             if i == "":
                 break
             try:
                 url = self.__getVideoUrlByFirstSearchResult(i)
-                filename = self.__downloadAudioMp4FromYoutube(url, self.files_directory + "/mp3ldl_files/")
+                filename = self.__downloadAudioMp4FromYoutube(url, self.files_directory)
                 self.__convertAudioMp4ToMp3(filename)
             except:
                 self.bad_titles.append(i)
 
             time.sleep(self.delay_loop_download)
 
-        print("\n\nDownload complete!\n\n")
+        print("\n\nDone!\n\n")
         print("Failed to download:\n")
         if len(self.bad_titles) == 0:
             print("None, download was succesful!")
